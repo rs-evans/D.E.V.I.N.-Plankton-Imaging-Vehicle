@@ -1,5 +1,5 @@
 import ms5837 #Pressure Sensor
-import adafruit_ina219 import ADCResolution, BusVoltageRange, INA219 #Current Sensor
+from adafruit_ina219 import ADCResolution, BusVoltageRange, INA219 #Current Sensor
 import board
 import time
 
@@ -22,7 +22,7 @@ print(("Temperature: %.2f C") % (
     sensor.temperature(ms5837.UNITS_Centigrade),
 ))
 
-sensor._fluidDensity(ms5837.DENSITY_SALTWATER)
+sensor.setFluidDensity(ms5837.DENSITY_SALTWATER)
 saltwaterDepth = sensor.depth()
 print(("Depth: %.3f m") % saltwaterDepth)
 
@@ -33,7 +33,7 @@ i2c_bus = board.I2C()
 ina219 = INA219(i2c_bus)
 
 ina219.bus_adc_resolution = ADCResolution.ADCRES_12BIT_32S
-ina219.shunt_adc_resolution = ADCResolution.ADRES_12BIT_32S
+ina219.shunt_adc_resolution = ADCResolution.ADCRES_12BIT_32S
 #Change if Battery is not 16V
 ina219.bus_voltage_range = BusVoltageRange.RANGE_16V
 
@@ -54,9 +54,10 @@ while True:
     print("")
 
     if sensor.read():
-        print(("P: %0.1f mbar \tT: %0.2f C") % (
+        print(("P: %0.1f mbar \tT: %0.2f C \tDepth: %0.1f") % (
         sensor.pressure(), # Default is mbar (no arguments)
         sensor.temperature(), # Default is degrees C (no arguments)
+	sensor.depth()
         ))
         print("")
     else: 
