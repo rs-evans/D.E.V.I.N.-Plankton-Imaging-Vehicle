@@ -23,7 +23,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     conn, addr = sock.accept()
     stream = conn.makefile("wb")
     picam2.encoder.output = FileOutput(stream)
-    picam2.start_encoder()
+    picam2.start_encoder(encoder)
     picam2.start()
     input("Press enter to stop streaming...")
     picam2.stop()
