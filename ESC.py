@@ -3,7 +3,6 @@
 # by Ryan Evans
 
 import pigpio
-sudo pigpiod
 
 # Connect ESC white wire to GPIO #27
 ESC_pin = 27
